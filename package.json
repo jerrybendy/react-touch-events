@@ -1,10 +1,11 @@
 {
   "name": "react-touch-events",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Enable tap / swipe events for react",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "babel -d lib/ src/",
+    "prepublish": "npm run compile"
   },
   "repository": {
     "type": "git",
@@ -17,9 +18,15 @@
     "swipe"
   ],
   "author": "Jerry Bendy <jerry@icewingcc.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jerrybendy/react-touch-events/issues"
   },
-  "homepage": "https://github.com/jerrybendy/react-touch-events#readme"
+  "homepage": "https://github.com/jerrybendy/react-touch-events#readme",
+  "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-1": "^6.13.0"
+  }
 }
