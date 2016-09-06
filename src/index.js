@@ -85,11 +85,11 @@ var ReactTouchEvents = React.createClass({
         this.startX = this.startY = 0;
     },
 
-    handleTouchEnd: function () {
+    handleTouchEnd: function (event) {
         this.touchStarted = false;
 
         if (! this.touchMoved && this.props.onTap) {
-            this.props.onTap();
+            this.props.onTap(event);
 
         } else if (! this.swipeOutBounded && this.props.onSwipe){
 
@@ -103,7 +103,7 @@ var ReactTouchEvents = React.createClass({
                 direction = this.startX > this.currentX ? "left" : "right";
             }
 
-            this.props.onSwipe(direction);
+            this.props.onSwipe(direction, event);
         }
     },
 
