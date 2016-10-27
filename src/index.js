@@ -36,7 +36,7 @@ var ReactTouchEvents = React.createClass({
     },
 
     handleClick: function () {
-        if (!this.usingTouch && this.props.onPoint) {
+        if (!this.usingTouch && this.props.onTap) {
             this.props.onTap();
         }
     },
