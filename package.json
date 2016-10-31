@@ -1,6 +1,6 @@
 {
   "name": "react-touch-events",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Enable tap / swipe events for react",
   "main": "lib/index.js",
   "scripts": {
