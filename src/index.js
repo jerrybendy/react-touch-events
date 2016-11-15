@@ -131,4 +131,4 @@ var ReactTouchEvents = React.createClass({
 });
 
 
-export default ReactTouchEvents;
+module.exports = ReactTouchEvents;
