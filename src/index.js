@@ -3,8 +3,8 @@
  */
 
 
-var React = require("react");
-var PropTypes = React.PropTypes;
+const React = require("react");
+const PropTypes = React.PropTypes;
 
 
 
@@ -18,20 +18,22 @@ function touchY (event) {
 
 
 
-var ReactTouchEvents = React.createClass({
+const ReactTouchEvents = React.createClass({
 
     propTypes: {
         children: PropTypes.node,
         tapTolerance: PropTypes.number,
         swipeTolerance: PropTypes.number,
         onTap: PropTypes.func,
-        onSwipe: PropTypes.func
+        onSwipe: PropTypes.func,
+        disableClick: PropTypes.bool,
     },
 
     getDefaultProps: function () {
         return {
             tapTolerance: 10,
-            swipeTolerance: 30
+            swipeTolerance: 30,
+            disableClick: false,
         };
     },
 
@@ -66,13 +68,13 @@ var ReactTouchEvents = React.createClass({
         this.currentY = touchY(event);
 
         if (! this.touchMoved) {
-            var tapTolerance = this.props.tapTolerance;
+            const tapTolerance = this.props.tapTolerance;
 
             this.touchMoved = Math.abs(this.startX - this.currentX) > tapTolerance ||
                 Math.abs(this.startY - this.currentY) > tapTolerance;
 
         } else if (! this.swipeOutBounded) {
-            var swipeOutBounded = this.props.swipeTolerance;
+            const swipeOutBounded = this.props.swipeTolerance;
 
             this.swipeOutBounded = Math.abs(this.startX - this.currentX) > swipeOutBounded &&
                 Math.abs(this.startY - this.currentY) > swipeOutBounded;
@@ -95,7 +97,7 @@ var ReactTouchEvents = React.createClass({
 
         } else if (! this.swipeOutBounded) {
             if (this.props.onSwipe) {
-                var swipeOutBounded = this.props.swipeTolerance,
+                let swipeOutBounded = this.props.swipeTolerance,
                     direction;
 
                 if (Math.abs(this.startX - this.currentX) < swipeOutBounded) {
@@ -116,16 +118,22 @@ var ReactTouchEvents = React.createClass({
 
 
     render: function () {
-        var children = this.props.children;
-        var element = children ? React.Children.only(children) : <button/>;
+        const children = this.props.children;
+        const disableClick = this.props.disableClick;
+        const element = children ? React.Children.only(children) : React.createElement("button", null);
 
-        return React.cloneElement(element, {
+        const eventBinding = {
             onClick: this.handleClick,
             onTouchStart: this.handleTouchStart,
             onTouchMove: this.handleTouchMove,
             onTouchCancel: this.handleTouchCancel,
             onTouchEnd: this.handleTouchEnd
-        });
+        };
+
+        if (disableClick)
+            delete eventBinding.onClick;
+
+        return React.cloneElement(element, eventBinding);
     }
 
 });
