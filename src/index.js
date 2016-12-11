@@ -25,13 +25,15 @@ const ReactTouchEvents = React.createClass({
         tapTolerance: PropTypes.number,
         swipeTolerance: PropTypes.number,
         onTap: PropTypes.func,
-        onSwipe: PropTypes.func
+        onSwipe: PropTypes.func,
+        disableClick: PropTypes.bool,
     },
 
     getDefaultProps: function () {
         return {
             tapTolerance: 10,
-            swipeTolerance: 30
+            swipeTolerance: 30,
+            disableClick: false,
         };
     },
 
@@ -117,15 +119,21 @@ const ReactTouchEvents = React.createClass({
 
     render: function () {
         const children = this.props.children;
+        const disableClick = this.props.disableClick;
         const element = children ? React.Children.only(children) : React.createElement("button", null);
 
-        return React.cloneElement(element, {
+        const eventBinding = {
             onClick: this.handleClick,
             onTouchStart: this.handleTouchStart,
             onTouchMove: this.handleTouchMove,
             onTouchCancel: this.handleTouchCancel,
             onTouchEnd: this.handleTouchEnd
-        });
+        };
+
+        if (disableClick)
+            delete eventBinding.onClick;
+
+        return React.cloneElement(element, eventBinding);
     }
 
 });

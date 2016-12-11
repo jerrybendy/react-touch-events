@@ -25,7 +25,7 @@ in React
     >
 ```
 
-`onTap` will also bind `click` event.
+~~`onTap` will also bind `click` event.~~ Before v1.1.0, `onTap` will auto bind `click` event. But it'll cause a click-through bug. So it has a simple fix after (include) v1.1.0 to use `disableClick` attribute. `onTap` will bind `click` event on default. You can use `disableClick={true}` to disable it.
 
 
 The full example:
@@ -61,6 +61,7 @@ class Test extends React.Components {
         <ReactTouchEvents
             onTap={ this.handleTap.bind(this) }
             onSwipe={ this.handleSwipe.bind(this) }
+            disableClick= { true }
             >
             
             <button>Tap me</button>
@@ -96,3 +97,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
