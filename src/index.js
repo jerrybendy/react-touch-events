@@ -3,8 +3,8 @@
  */
 
 
-var React = require("react");
-var PropTypes = React.PropTypes;
+const React = require("react");
+const PropTypes = React.PropTypes;
 
 
 
@@ -18,7 +18,7 @@ function touchY (event) {
 
 
 
-var ReactTouchEvents = React.createClass({
+const ReactTouchEvents = React.createClass({
 
     propTypes: {
         children: PropTypes.node,
@@ -66,13 +66,13 @@ var ReactTouchEvents = React.createClass({
         this.currentY = touchY(event);
 
         if (! this.touchMoved) {
-            var tapTolerance = this.props.tapTolerance;
+            const tapTolerance = this.props.tapTolerance;
 
             this.touchMoved = Math.abs(this.startX - this.currentX) > tapTolerance ||
                 Math.abs(this.startY - this.currentY) > tapTolerance;
 
         } else if (! this.swipeOutBounded) {
-            var swipeOutBounded = this.props.swipeTolerance;
+            const swipeOutBounded = this.props.swipeTolerance;
 
             this.swipeOutBounded = Math.abs(this.startX - this.currentX) > swipeOutBounded &&
                 Math.abs(this.startY - this.currentY) > swipeOutBounded;
@@ -95,7 +95,7 @@ var ReactTouchEvents = React.createClass({
 
         } else if (! this.swipeOutBounded) {
             if (this.props.onSwipe) {
-                var swipeOutBounded = this.props.swipeTolerance,
+                let swipeOutBounded = this.props.swipeTolerance,
                     direction;
 
                 if (Math.abs(this.startX - this.currentX) < swipeOutBounded) {
@@ -116,8 +116,8 @@ var ReactTouchEvents = React.createClass({
 
 
     render: function () {
-        var children = this.props.children;
-        var element = children ? React.Children.only(children) : <button/>;
+        const children = this.props.children;
+        const element = children ? React.Children.only(children) : React.createElement("button", null);
 
         return React.cloneElement(element, {
             onClick: this.handleClick,
