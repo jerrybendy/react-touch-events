@@ -16,7 +16,14 @@ npm i -S react-touch-events
 import ReactTouchEvents from "react-touch-events";
 ```
 
-in React
+You can also use as UMD mode. Download the library file from `lib/index.js`(there provide uncompress file only) and add a `script` tag like this and you can use `window.ReactTouchEvents` now:
+
+```html
+<script src="path/to/lib/index.js"></script>
+```
+
+
+In React
 
 ```js
 <ReactTouchEvents 
