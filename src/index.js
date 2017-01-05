@@ -7,43 +7,31 @@ const React = require("react");
 const PropTypes = React.PropTypes;
 
 
-
-function touchX (event) {
+function touchX(event) {
     return event.touches [0].clientX;
 }
 
-function touchY (event) {
+function touchY(event) {
     return event.touches [0].clientY;
 }
 
 
+class ReactTouchEvents extends React.Component {
 
-const ReactTouchEvents = React.createClass({
 
-    propTypes: {
-        children: PropTypes.node,
-        tapTolerance: PropTypes.number,
-        swipeTolerance: PropTypes.number,
-        onTap: PropTypes.func,
-        onSwipe: PropTypes.func,
-        disableClick: PropTypes.bool,
-    },
+    usingTouch = false;
 
-    getDefaultProps: function () {
-        return {
-            tapTolerance: 10,
-            swipeTolerance: 30,
-            disableClick: false,
-        };
-    },
 
-    handleClick: function () {
+    handleClick = () => {
+        console.log('handleClick');
         if (!this.usingTouch && this.props.onTap) {
+            console.log('onClick');
             this.props.onTap();
         }
-    },
+    };
 
-    handleTouchStart: function (event) {
+
+    handleTouchStart = (event) => {
 
         this.usingTouch = true;
 
@@ -61,41 +49,42 @@ const ReactTouchEvents = React.createClass({
 
         this.currentX = 0;
         this.currentY = 0;
-    },
+    };
 
-    handleTouchMove: function (event) {
+
+    handleTouchMove = (event) => {
         this.currentX = touchX(event);
         this.currentY = touchY(event);
 
-        if (! this.touchMoved) {
+        if (!this.touchMoved) {
             const tapTolerance = this.props.tapTolerance;
 
             this.touchMoved = Math.abs(this.startX - this.currentX) > tapTolerance ||
                 Math.abs(this.startY - this.currentY) > tapTolerance;
 
-        } else if (! this.swipeOutBounded) {
+        } else if (!this.swipeOutBounded) {
             const swipeOutBounded = this.props.swipeTolerance;
 
             this.swipeOutBounded = Math.abs(this.startX - this.currentX) > swipeOutBounded &&
                 Math.abs(this.startY - this.currentY) > swipeOutBounded;
 
         }
-    },
+    };
 
-    handleTouchCancel: function () {
+    handleTouchCancel = () => {
         this.touchStarted = this.touchMoved = false;
         this.startX = this.startY = 0;
-    },
+    };
 
-    handleTouchEnd: function (event) {
+    handleTouchEnd = (event) => {
         this.touchStarted = false;
 
-        if (! this.touchMoved ) {
+        if (!this.touchMoved) {
             if (this.props.onTap) {
                 this.props.onTap(event);
             }
 
-        } else if (! this.swipeOutBounded) {
+        } else if (!this.swipeOutBounded) {
             if (this.props.onSwipe) {
                 let swipeOutBounded = this.props.swipeTolerance,
                     direction;
@@ -110,33 +99,37 @@ const ReactTouchEvents = React.createClass({
                 this.props.onSwipe(direction, event);
             }
         }
-    },
-
-    componentWillMount: function () {
-        this.usingTouch = false;
-    },
+    };
 
 
-    render: function () {
+    render() {
         const children = this.props.children;
-        const disableClick = this.props.disableClick;
         const element = children ? React.Children.only(children) : React.createElement("button", null);
 
-        const eventBinding = {
+        return React.cloneElement(element, {
             onClick: this.handleClick,
             onTouchStart: this.handleTouchStart,
             onTouchMove: this.handleTouchMove,
             onTouchCancel: this.handleTouchCancel,
-            onTouchEnd: this.handleTouchEnd
-        };
-
-        if (disableClick)
-            delete eventBinding.onClick;
-
-        return React.cloneElement(element, eventBinding);
+            onTouchEnd: this.handleTouchEnd,
+        });
     }
+}
 
-});
+
+ReactTouchEvents.defaultProps = {
+    tapTolerance: 10,
+    swipeTolerance: 30,
+};
+
+
+ReactTouchEvents.propTypes = {
+    children: PropTypes.node,
+    tapTolerance: PropTypes.number,
+    swipeTolerance: PropTypes.number,
+    onTap: PropTypes.func,
+    onSwipe: PropTypes.func,
+};
 
 
 module.exports = ReactTouchEvents;
