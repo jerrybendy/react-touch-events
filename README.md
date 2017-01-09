@@ -10,6 +10,9 @@ Use `npm`
 npm i -S react-touch-events
 ```
 
+We have removed all click events from `ReactTouchEvents` since v2.x. If you want use click event fallback, please use the v1.x version with `npm i -S react-touch-events@1`.
+
+
 ## Usage
 
 ```js
@@ -31,8 +34,6 @@ In React
     onSwipe={ this.handleSwipe }
     >
 ```
-
-~~`onTap` will also bind `click` event.~~ Before v1.1.0, `onTap` will auto bind `click` event. But it'll cause a click-through bug. So it has a simple fix after (include) v1.1.0 to use `disableClick` attribute. `onTap` will bind `click` event on default. You can use `disableClick={true}` to disable it.
 
 
 The full example:
@@ -68,7 +69,6 @@ class Test extends React.Components {
         <ReactTouchEvents
             onTap={ this.handleTap.bind(this) }
             onSwipe={ this.handleSwipe.bind(this) }
-            disableClick= { true }
             >
             
             <button>Tap me</button>

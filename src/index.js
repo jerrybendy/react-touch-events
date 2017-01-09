@@ -19,21 +19,7 @@ function touchY(event) {
 class ReactTouchEvents extends React.Component {
 
 
-    usingTouch = false;
-
-
-    handleClick = () => {
-        console.log('handleClick');
-        if (!this.usingTouch && this.props.onTap) {
-            console.log('onClick');
-            this.props.onTap();
-        }
-    };
-
-
     handleTouchStart = (event) => {
-
-        this.usingTouch = true;
 
         if (this.touchStarted) {
             return;
@@ -107,7 +93,6 @@ class ReactTouchEvents extends React.Component {
         const element = children ? React.Children.only(children) : React.createElement("button", null);
 
         return React.cloneElement(element, {
-            onClick: this.handleClick,
             onTouchStart: this.handleTouchStart,
             onTouchMove: this.handleTouchMove,
             onTouchCancel: this.handleTouchCancel,
