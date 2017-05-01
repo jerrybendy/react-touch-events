@@ -4,7 +4,7 @@
 
 
 const React = require("react");
-const PropTypes = React.PropTypes;
+const PropTypes = require('prop-types');
 
 
 function touchX(event) {

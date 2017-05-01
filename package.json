@@ -1,6 +1,6 @@
 {
   "name": "react-touch-events",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Enable tap / swipe events for react",
   "main": "lib/index.js",
   "scripts": {
@@ -23,6 +23,9 @@
     "url": "https://github.com/jerrybendy/react-touch-events/issues"
   },
   "homepage": "https://github.com/jerrybendy/react-touch-events#readme",
+  "dependencies": {
+    "prop-types": "^15.5.8"
+  },
   "devDependencies": {
     "babel-loader": "^6.2.9",
     "babel-preset-es2015": "^6.14.0",
