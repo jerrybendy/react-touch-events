@@ -1,6 +1,8 @@
 # react-touch-events  [![](https://img.shields.io/npm/v/react-touch-events.svg)](https://www.npmjs.com/package/react-touch-events)
 Enable tap / swipe events for react
 
+> This document is for v2.x.  
+> v3 has no document yet.
 
 ## Install
 
